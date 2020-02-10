@@ -3,9 +3,9 @@
 Welcome to the MicroMEC Documentation repository. The following documentation 
 are located here:
 
-* [Architecture](architecture/)
-* [Installation](installation/)
-* [Testing](testing/)
+* [Architecture](architecture/umec_architecture.md)
+* [Installation](installation/umec_installation.md)
+* [Testing](testing/umec_testing.md)
 * Release 3
 
 Here at github the project hosts the most relevant documentation, API source, 
@@ -55,6 +55,6 @@ often vendor specific. These implementations are in form of plugins that connect
 to the external devices and convert their data for further use. The data is 
 pushed to a messaging system. The APIs will provide access to the data via this 
 messaging system. The same system will enable control of the devices where 
-applicable. More on this can be found in the [Architecture specification](/architecture). 
+applicable. More on this can be found in the [Architecture](/architecture/umec_architecture.md) specification. 
 
 
