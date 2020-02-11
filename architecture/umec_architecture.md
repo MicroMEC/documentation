@@ -15,8 +15,10 @@ Below we will outline each major block of the architecture.
 ### Sensor Plugins
 
 Data source vendors may provide access to high level APIs (e.g. REST, ONVIF) or 
-lower level protocols (e.g. Modbus) over physical layers such as RS-485, RS-232 
-etc. For integration purposes uMEC has a plugin system: Sensor Plugins. 
+lower level protocols (Modbus, I2C, SPI etc.) over physical layers such as 
+RS-485, RS-232, Ethernet etc. 
+
+For integration purposes uMEC has a plugin system: Sensor Plugins. 
 
 {continue}
 
