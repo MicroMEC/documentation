@@ -18,19 +18,19 @@ Data source vendors may provide access to high level APIs (e.g. REST, ONVIF) or
 lower level protocols (e.g. Modbus) over physical layers such as RS-485, RS-232 
 etc. For integration purposes uMEC has a plugin system: Sensor Plugins. 
 
-<continue>
+{continue}
 
 ### NATS
 
-<todo>
+{todo}
 
 ### APIs and Applications
 
-<todo>
+{todo}
 
 ### Network Connections
 
-<todo>
+{todo}
 
 ## MicroMEC Network
 
@@ -39,3 +39,4 @@ cloud network.
 
 ![uMEC Network](./umec_network.png)
 
+{explanation}
