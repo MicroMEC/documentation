@@ -106,12 +106,3 @@ elements.
 ### Network Connections
 
 {todo}
-
-## MicroMEC Network
-
-uMEC Units can form their own private network, and they may also connect to a 
-cloud network. 
-
-![uMEC Network](./umec_network.png)
-
-{explanation}
