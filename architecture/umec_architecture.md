@@ -1,5 +1,20 @@
 # MicroMEC Architecture
 
+## Overview
+
+![uMEC Network](./umec_network.png)
+
+In a network topology uMECs reside on the far edge, or ultra far edge. 
+Physically the uMEC devices or units are typically installed on light poles, 
+buildings or in moving vehicles. 
+
+uMECs are connected to an existing IP network. This specification will not go 
+into details on how to design such networks, but it assumes a working IP network
+is available. 
+
+As uMECs can also access cloud services from the Internet if the network 
+operator who manages the installation allows such connections. 
+
 ## MicroMEC Unit
 
 The diagram below presents the a basic uMEC Unit that includes hardware and 
@@ -20,7 +35,61 @@ RS-485, RS-232, Ethernet etc.
 
 For integration purposes uMEC has a plugin system: Sensor Plugins. 
 
-{continue}
+uMEC has two kinds of plugins based on their implementation methods:
+
+* low level plugins
+* high level plugins
+
+#### Low Level Plugins
+
+A low level plugin either connects to a kernel API that is running on the uMEC 
+unit, or connects directly to the hardware via some physical connection.
+
+Low level plugins may include two layers: 
+
+* hardware adaptation
+* container adaptation
+
+Hardware adaptation can be implemented as a Linux kernel module, or can be 
+built on top of existing APIs, such as V4L2 (Video for Linux). 
+
+The container adaptation is a piece of software that let's a containerized 
+application access the hardware that is physically attached to the uMEC unit. 
+
+The container adaptation block is also responsible to relay data between 
+NATS (see below) and the hardware adaptation layer. 
+
+In some cases the hardware adaptation layer can be omitted. When an underlying 
+protocol already exposes the hardware in a standardized way then the container
+adaptation layer may directly use that protocol (such as USB cameras and V4L2).
+
+The diagram demonstrates how a low level plugins are implemented. 
+
+On the left there is a camera plugin based on V4L2. There is no need for any 
+hardware adaptation.
+
+On the right side there is a temperature sensor (and a control unit) where the
+hardware adaptation is an implementation of a MODBUS protocol specified by the 
+vendor.
+
+Both plugins have a device plugin as a container adaptation layer. The uMEC APIs
+communicate with the specific sensor or camera via device plugins.
+
+![uMEC low level plugins](./low_level_plugins.png)
+
+#### High Level Plugins
+
+A high level plugin is needed when the vendor has abstracted the access to the 
+sensor by providing an API. Such APIs can be based on HTTP, RTSP, or other IP 
+based protocols. 
+
+High level plugins only require container adaptation, which allows the uMEC APIs
+to fetch data from the sensor, or send control commands to the sensor. 
+
+The diagram below shows the different plugin implementations of various hardware
+elements.
+
+{diagram of a high level plugin}
 
 ### NATS
 
