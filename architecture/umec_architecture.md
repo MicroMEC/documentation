@@ -63,7 +63,11 @@ In some cases the hardware adaptation layer can be omitted. When an underlying
 protocol already exposes the hardware in a standardized way then the container
 adaptation layer may directly use that protocol (such as USB cameras and V4L2).
 
-The diagram demonstrates how a low level plugins are implemented. 
+##### Examples
+
+![uMEC low level plugins](./low_level_plugins.png)
+
+The diagram above shows how low level plugins are implemented. 
 
 On the left there is a camera plugin based on V4L2. There is no need for any 
 hardware adaptation.
@@ -74,8 +78,6 @@ vendor.
 
 Both plugins have a device plugin as a container adaptation layer. The uMEC APIs
 communicate with the specific sensor or camera via device plugins.
-
-![uMEC low level plugins](./low_level_plugins.png)
 
 #### High Level Plugins
 
@@ -89,7 +91,9 @@ to fetch data from the sensor, or send control commands to the sensor.
 The diagram below shows the different plugin implementations of various hardware
 elements.
 
-{diagram of a high level plugin}
+##### Example
+
+{diagram and some words on a high level plugin}
 
 ### NATS
 
