@@ -67,7 +67,8 @@ adaptation layer may directly use that protocol (such as USB cameras and V4L2).
 
 ![uMEC low level plugins](./low_level_plugins.png)
 
-The diagram above shows how low level plugins are implemented. 
+The diagram above shows how low level plugins are implemented in context with 
+the uMEC APIs and applications. 
 
 On the left there is a camera plugin based on V4L2. There is no need for any 
 hardware adaptation.
@@ -86,14 +87,24 @@ sensor by providing an API. Such APIs can be based on HTTP, RTSP, or other IP
 based protocols. 
 
 High level plugins only require container adaptation, which allows the uMEC APIs
-to fetch data from the sensor, or send control commands to the sensor. 
-
-The diagram below shows the different plugin implementations of various hardware
-elements.
+to fetch data from the sensor, or send control commands to the sensor. In some
+cases the uMEC APIs could implement the vendor APIs, without creating an extra 
+software element. 
 
 ##### Example
 
-{diagram and some words on a high level plugin}
+![uMEC high level plugins](./high_level_plugins.png)
+
+The diagram outlines a high level device plugin. In this scenario the vendor 
+provides a comprehensive HTTP REST API to communicate to a complex hardware, 
+like a weather station.
+
+The uMEC implementation only includes container adaptation. The vendor's API is
+implemented and opened up for the relevant uMEC APIs for further use. The uMEC
+API code could actually implement the vendor supplied API. There could be cases 
+where an additional software component is more appropriate for the vendor API 
+implementation in order to guarantee a cleaner architecture. Hence the picture 
+separates the uMEC API from the container adaptation layer. 
 
 ### NATS
 
