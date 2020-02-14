@@ -124,7 +124,7 @@ The picture above separates the uMEC API from the container adaptation layer.
 [NATS.io](https://nats.io) allows secure, multi-tenant messaging between the 
 Sensor Plugins and the uMEC APIs. 
 
-![uMEC NATS](./nats.png)
+![uMEC NATS](./umec_nats.png)
 
 The diagram above shows various *users* of NATS. There are sensor plugins that 
 only **publish** information. Other sensor devices may be able to receive 
