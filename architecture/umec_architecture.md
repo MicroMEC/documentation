@@ -4,9 +4,9 @@
 
 ![uMEC Network](./umec_network.png)
 
-In a network topology uMECs reside on the far edge, or ultra far edge. 
-Physically the uMEC devices or units are typically installed on light poles, 
-buildings or in moving vehicles. 
+In a network topology uMEC nodes reside on the far edge, or ultra far edge. 
+Physically the **uMEC nodes** (in short uMECs) are typically installed on light 
+poles, buildings or in moving vehicles. 
 
 uMECs are connected to an existing IP network. This specification will not go 
 into details on how to design such networks, but it assumes a working IP network
@@ -15,23 +15,26 @@ is available.
 uMECs can also access cloud services from the Internet if the network operator 
 who manages the installation allows such connections. 
 
-In a typical installation there are more uMEC units connected to each other and 
-forming a **cluster**. Each uMEC may have access to different systems, sensors, 
-cameras etc. Managing a cluster is non trivial without using a proper 
-orchestration platform and an alerting / monitoring system. 
+In a typical installation there are more uMECs connected to each other and 
+forming a **cluster**. Each uMEC node may have access to different systems, 
+sensors, cameras etc. 
 
-The [installation document](../installation/umec_installation.md) will go into 
-details of how clusters can be built and configured.
+Managing a cluster is non trivial without using a proper orchestration platform 
+and an alerting / monitoring system. 
 
-## MicroMEC Unit
+The [installation document](../installation/umec_installation.md) describes how 
+these clusters can be built and configured.
 
-The diagram below presents the a basic uMEC Unit that includes hardware and 
-software elements. The uMEC Unit is typically installed close to the data 
-sources (sensors, cameras etc.). 
+## MicroMEC Node
 
-Integration to data sources are done in cooperation with the hardware vendors. 
+The diagram below presents a basic uMEC node that includes hardware and software
+elements. The uMEC is typically installed close to the data sources 
+(sensors, cameras etc.) and to the systems to be controlled. 
 
-![uMEC Unit](./umec_unit.png)
+Integration to such data sources and systems are done in cooperation with the 
+hardware vendors. 
+
+![uMEC node](./umec_node.png)
 
 Below we will outline each major block of the architecture.
 
@@ -41,9 +44,9 @@ Data source vendors may provide access to high level APIs (e.g. REST, ONVIF) or
 lower level protocols (Modbus, I2C, SPI etc.) over physical layers such as 
 RS-485, RS-232, Ethernet etc. 
 
-For integration purposes uMEC has a plugin system: Sensor Plugins. 
+For integration purposes uMEC has a plugin system called **Sensor Plugins**. 
 
-uMEC has two kinds of plugins based on their implementation methods:
+uMEC has two kinds of plugins based on their implementation:
 
 * low level plugins
 * high level plugins
@@ -51,9 +54,9 @@ uMEC has two kinds of plugins based on their implementation methods:
 #### Low Level Plugins
 
 A low level plugin either connects to a kernel API that is running on the uMEC 
-unit, or connects directly to the hardware via some physical connection.
+node or connects directly to the hardware via some physical connection.
 
-Low level plugins may include two layers: 
+Low level plugins may include **two layers**: 
 
 * hardware adaptation
 * container adaptation
@@ -62,7 +65,7 @@ Hardware adaptation can be implemented as a Linux kernel module, or can be
 built on top of existing APIs, such as V4L2 (Video for Linux). 
 
 The container adaptation is a piece of software that let's a containerized 
-application access the hardware that is physically attached to the uMEC unit. 
+application access the hardware that is physically attached to the uMEC node. 
 
 The container adaptation block is also responsible to relay data between 
 NATS (see below) and the hardware adaptation layer. 
@@ -76,7 +79,7 @@ adaptation layer may directly use that protocol (such as USB cameras and V4L2).
 ![uMEC low level plugins](./low_level_plugins.png)
 
 The diagram above shows how low level plugins are implemented in context with 
-the uMEC APIs and applications. 
+the **uMEC APIs** and **uMEC applications**. 
 
 On the left there is a camera plugin based on V4L2. There is no need for any 
 hardware adaptation.
@@ -108,11 +111,13 @@ provides a comprehensive HTTP REST API to communicate to a complex hardware,
 like a weather station.
 
 The uMEC implementation only includes container adaptation. The vendor's API is
-implemented and opened up for the relevant uMEC APIs for further use. The uMEC
-API code could actually implement the vendor supplied API. There could be cases 
-where an additional software component is more appropriate for the vendor API 
-implementation in order to guarantee a cleaner architecture. Hence the picture 
-separates the uMEC API from the container adaptation layer. 
+implemented and opened up for the relevant uMEC APIs for further use. 
+
+The uMEC API code could actually implement the vendor supplied API. There could 
+be cases where an additional software component is more appropriate for the 
+vendor API implementation in order to guarantee a cleaner architecture. 
+
+The picture above separates the uMEC API from the container adaptation layer. 
 
 ### NATS
 
@@ -134,9 +139,9 @@ Messages are encrypted and signed to ensure security and data integrity.
 
 #### NATS Cluster
 
-It is possible to setup clustering for NATS when multiple uMEC units are 
+It is possible to setup clustering for NATS when multiple uMEC nodes are 
 connected to the same network. This feature allows easy data sharing among uMEC
-units and enables use cases that involve moving objects, such as vehicles, for 
+nodes and enables use cases that involve moving objects, such as vehicles, for 
 example. 
 
 ### APIs and Applications
@@ -154,19 +159,20 @@ proper access control overall uMEC.
 
 ### Network Connections
 
-uMEC units are connected to an IP network. 
+uMEC nodes are connected to an IP network. 
 
-It must be kept in mind that uMEC units form clusters. If there is a distributed 
+It must be kept in mind that uMEC nodes form clusters. If there is a distributed 
 network spanning across a larger area, then the design and implementation should 
-allow the uMEC units to communicate with each other. 
+allow the uMECs to communicate with each other. 
 
 Such cluster could be realized in a street where each light pole is equipped 
-with a uMEC unit and the light poles are connecting to the same LAN.
+with uMEC and the light poles are connected to the same LAN.
 
-Interesting use cases arise when a guest joins such a static network. Such guest 
+Interesting use cases arise when a guest joins such a static network. A guest 
 could be a person with a suitable IP device, or a moving vehicle. These devices
-can become part of the same LAN and maximize the usage of uMEC cluster. This 
-document is however not meant to describe such scenarios in detail.
+can become part of the same LAN and maximize the usage of the uMEC cluster. 
+
+This document is not meant to describe such scenarios in detail.
 
 
 
