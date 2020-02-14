@@ -89,8 +89,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.2953002"
-     inkscape:cx="580.47745"
-     inkscape:cy="669.09767"
+     inkscape:cx="538.6725"
+     inkscape:cy="681.53325"
      inkscape:document-units="mm"
      inkscape:current-layer="layer4"
      showgrid="true"
@@ -145,7 +145,7 @@
        height="22.489582"
        width="43.656254"
        id="rect25302"
-       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#333333;stroke-width:0.2;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:0.2, 0.59999999999999998;stroke-dashoffset:0;stroke-opacity:1" />
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#333333;stroke-width:0.2;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:0.2, 0.6;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        id="text25306"
        y="-33.489056"
@@ -365,22 +365,22 @@
        y="-75.749985"
        ry="2.2146757e-13" />
     <rect
-       ry="1.7717412e-14"
-       y="-6.9583473"
+       ry="1.3288029e-14"
+       y="-6.9583416"
        x="148.16667"
-       height="5.2916684"
-       width="5.2916703"
+       height="3.9687424"
+       width="3.9687438"
        id="rect25539"
-       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffcd00;stroke-width:0.28571439;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffcd00;stroke-width:0.21428531;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     <text
        id="text25543"
-       y="-2.5087621"
-       x="155.81204"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.88055563px;line-height:1.25;font-family:Cantarell;-inkscape-font-specification:Cantarell;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;opacity:1;vector-effect:none;fill:#333333;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       y="-3.0635278"
+       x="153.71771"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.88055563px;line-height:1.25;font-family:Cantarell;-inkscape-font-specification:Cantarell;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;opacity:1;vector-effect:none;fill:#333333;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;"
        xml:space="preserve"><tspan
-         style="fill:#333333;fill-opacity:1;stroke-width:0.26458332"
-         y="-2.5087621"
-         x="155.81204"
+         style="font-size:2.82222223px;fill:#333333;fill-opacity:1;stroke-width:0.26458332;"
+         y="-3.0635278"
+         x="153.71771"
          id="tspan25541"
          sodipodi:role="line">uMEC specific implementation</tspan></text>
     <rect
@@ -416,7 +416,7 @@
        x="160.08882"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.88055563px;line-height:1.25;font-family:Cantarell;-inkscape-font-specification:Cantarell;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;opacity:1;vector-effect:none;fill:#333333;fill-opacity:0.90196078;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        xml:space="preserve"><tspan
-         style="font-size:2.82222223px;fill:#333333;fill-opacity:0.90196078;stroke-width:0.26458332"
+         style="font-size:2.82222223px;fill:#333333;fill-opacity:1;stroke-width:0.26458332"
          y="73.728699"
          x="160.08882"
          id="tspan25586"
@@ -430,7 +430,7 @@
          sodipodi:role="line"
          x="156.409"
          y="58.2556"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.88055563px;line-height:0px;font-family:Cantarell;-inkscape-font-specification:Cantarell;fill:#333333;fill-opacity:0.90196078;stroke-width:0.26458332"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.88055563px;line-height:0px;font-family:Cantarell;-inkscape-font-specification:Cantarell;fill:#333333;fill-opacity:1;stroke-width:0.26458332"
          id="tspan25604">HTTP REST API</tspan></text>
     <text
        xml:space="preserve"
@@ -489,25 +489,6 @@
        x="148.16667"
        y="8.9166584"
        ry="1.4616861e-13" />
-    <rect
-       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffcd00;stroke-width:0.28571439;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect25628"
-       width="5.2916703"
-       height="5.2916684"
-       x="148.16667"
-       y="77.708321"
-       ry="1.7717412e-14" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.88055563px;line-height:1.25;font-family:Cantarell;-inkscape-font-specification:Cantarell;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;opacity:1;vector-effect:none;fill:#333333;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       x="155.81204"
-       y="82.157906"
-       id="text25632"><tspan
-         sodipodi:role="line"
-         id="tspan25630"
-         x="155.81204"
-         y="82.157906"
-         style="fill:#333333;fill-opacity:1;stroke-width:0.26458332">uMEC specific implementation</tspan></text>
     <g
        id="g22658-9"
        style="display:inline;opacity:1;filter:url(#filter17822);enable-background:new"
@@ -974,6 +955,25 @@
            sodipodi:nodetypes="cc" />
       </g>
     </g>
+    <rect
+       ry="1.3288029e-14"
+       y="77.708328"
+       x="148.16667"
+       height="3.9687424"
+       width="3.968744"
+       id="rect25539-3"
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffcd00;stroke-width:0.21428531;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;enable-background:new" />
+    <text
+       id="text25543-3"
+       y="81.603142"
+       x="153.71771"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.88055563px;line-height:1.25;font-family:Cantarell;-inkscape-font-specification:Cantarell;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;opacity:1;vector-effect:none;fill:#333333;fill-opacity:0.90196079;stroke:none;stroke-width:0.26458332;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;enable-background:new;"
+       xml:space="preserve"><tspan
+         style="font-size:2.82222223px;fill:#333333;fill-opacity:1;stroke-width:0.26458332"
+         y="81.603142"
+         x="153.71771"
+         id="tspan25541-7"
+         sodipodi:role="line">uMEC specific implementation</tspan></text>
   </g>
   <g
      inkscape:label="uMEC Unit"
