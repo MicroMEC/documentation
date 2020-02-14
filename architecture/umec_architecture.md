@@ -12,8 +12,16 @@ uMECs are connected to an existing IP network. This specification will not go
 into details on how to design such networks, but it assumes a working IP network
 is available. 
 
-As uMECs can also access cloud services from the Internet if the network 
-operator who manages the installation allows such connections. 
+uMECs can also access cloud services from the Internet if the network operator 
+who manages the installation allows such connections. 
+
+In a typical installation there are more uMEC units connected to each other and 
+forming a **cluster**. Each uMEC may have access to different systems, sensors, 
+cameras etc. Managing a cluster is non trivial without using a proper 
+orchestration platform and an alerting / monitoring system. 
+
+The [installation document](../installation/umec_installation.md) will go into 
+details of how clusters can be built and configured.
 
 ## MicroMEC Unit
 
@@ -108,12 +116,71 @@ separates the uMEC API from the container adaptation layer.
 
 ### NATS
 
-{todo}
+[NATS.io](https://nats.io) allows secure, multi-tenant messaging between the 
+Sensor Plugins and the uMEC APIs. 
+
+![uMEC NATS](./nats.png)
+
+The diagram above shows various *users* of NATS. There are sensor plugins that 
+only **publish** information. Other sensor devices may be able to receive 
+control commands, hence they also **subscribe** to messages coming from uMEC 
+APIs. uMEC APIs can also have dual roles, so they can subscribe as well as 
+publish information. 
+
+With built in mechanisms NATS guarantees that data is secured and properly
+isolated from various *users*. Accounts are created for each sensor plugin and 
+uMEC API implementations. Each party is authenticated to limit access to data. 
+Messages are encrypted and signed to ensure security and data integrity.
+
+#### NATS Cluster
+
+It is possible to setup clustering for NATS when multiple uMEC units are 
+connected to the same network. This feature allows easy data sharing among uMEC
+units and enables use cases that involve moving objects, such as vehicles, for 
+example. 
 
 ### APIs and Applications
 
-{todo}
+As mentioned earlier the APIs provided by uMEC as well as the applications that 
+make use of these APIs are all containerized. Containers are orchestrated with 
+[k3s](https://k3s.io). 
+
+APIs are connecting to the sensors via plugins to send commands and receive 
+data. 
+
+Applications interact with the APIs, they do not have direct access to the 
+plugins. Strict authentication and authorization measures are taken to ensure 
+proper access control overall uMEC.
 
 ### Network Connections
 
-{todo}
+uMEC units are connected to an IP network. 
+
+It must be kept in mind that uMEC units form clusters. If there is a distributed 
+network spanning across a larger area, then the design and implementation should 
+allow the uMEC units to communicate with each other. 
+
+Such cluster could be realized in a street where each light pole is equipped 
+with a uMEC unit and the light poles are connecting to the same LAN.
+
+Interesting use cases arise when a guest joins such a static network. Such guest 
+could be a person with a suitable IP device, or a moving vehicle. These devices
+can become part of the same LAN and maximize the usage of uMEC cluster. This 
+document is however not meant to describe such scenarios in detail.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
