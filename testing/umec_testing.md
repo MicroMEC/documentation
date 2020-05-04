@@ -1,10 +1,10 @@
 # Introduction
 
-<Details about Additional tests required for this Blue Print in addition to the Akraino Validation Feature Project>
+Details about Additional tests required for this Blue Print in addition to the Akraino Validation Feature Project
 
 Akraino Test Group Information
 
-<The Testing Ecosystem>
+The Testing Ecosystem
 
 Testing Working Group Resources
 
