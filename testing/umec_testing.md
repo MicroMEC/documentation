@@ -1,6 +1,6 @@
 # Introduction
 
-Details about Additional tests required for this Blue Print in addition to the Akraino Validation Feature Project
+Details about additional tests required for this Blueprint in addition to the Akraino Validation Feature Project
 
 Akraino Test Group Information
 
@@ -10,53 +10,26 @@ Testing Working Group Resources
 
 # Overall Test Architecture
 
-Describe  the components of Test set up
+The software stack can  be tested with a virtual machine. The Vagrant version is currently work in progress. 
 
-- Test Bed
-- Test Framework
-- Traffic Generator
+The installation system uses a server for booting and hosting the root file system. This allows a rapid turnaround to testing, and it also saves the MMC from wear and tear. The test server can be the same server as the boot server, but for clarity we are drawing it as separate.
+
+The system can be deployed as a standalone or as a cluster, and with different hardware. This document describes the standalone system.
 
 
 # Test API description
 
 ## Akraino common tests
 
-The Test inputs
-Test Procedure
-
-Expected output
-Test Results
 
 ## Blueprint extension tests
 
-The Test inputs
-Test Procedure
-
-Expected output
-Test Results
-
-## Feature Project Tests
-
-The Test inputs
-Test Procedure
-
-Expected output
-Test Results
+The ETSI MEC-11 implementation provides a REST interface. Writing a tests suite for it is work in progress.
 
 
 ## BluVal Tests
 
-The Test inputs
-Test Procedure
-
-Expected output
-Test Results
-
-
-Test Dashboards
-
-Single pane view of how the test score looks like for the Blue print.
-
+The µMEC installs k3s which is a lightweight version of kubernetes. Therefore, all the Akraino Bluprint Validation tests are applicable. 
 	
 ## Additional Testing
 
