@@ -12,16 +12,16 @@
    inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
    id="svg8"
    version="1.1"
-   viewBox="0 0 210 297"
-   height="297mm"
+   viewBox="0 0 210 171"
+   height="171mm"
    width="210mm">
   <defs
      id="defs2">
     <rect
        id="rect67505"
-       height="47.527848"
-       width="25.783439"
-       y="79.165194"
+       height="47.527847"
+       width="25.78344"
+       y="79.165192"
        x="15.919442" />
     <linearGradient
        id="linearGradient5992"
@@ -53,18 +53,18 @@
        x1="383.95898"
        x2="458.91232"
        xlink:href="#linearGradient5992"
-       y1="225.40080"
+       y1="225.4008"
        y2="187.57059" />
     <radialGradient
-       cx="495.50000"
+       cx="495.5"
        cy="285.36218"
-       fx="495.50000"
+       fx="495.5"
        fy="285.36218"
-       gradientTransform="matrix(1.000000,0.000000,0.000000,1.693685,0.000000,-197.9515)"
+       gradientTransform="matrix(1,0,0,1.693685,0,-197.9515)"
        gradientUnits="userSpaceOnUse"
        id="radialGradient6000"
        inkscape:collect="always"
-       r="33.156250"
+       r="33.15625"
        xlink:href="#linearGradient5992" />
   </defs>
   <sodipodi:namedview
@@ -77,7 +77,7 @@
      inkscape:document-rotation="0"
      inkscape:current-layer="layer1"
      inkscape:document-units="mm"
-     inkscape:cy="312.72735"
+     inkscape:cy="354.1336"
      inkscape:cx="353.5"
      inkscape:zoom="1"
      inkscape:pageshadow="2"
@@ -296,7 +296,7 @@
          id="tspan67501"
          sodipodi:role="line">Root file system</tspan></text>
     <text
-       style="fill:none;stroke:black;stroke-opacity:1;stroke-width:0.26458333px;stroke-linejoin:miter;stroke-linecap:butt;font-family:sans-serif;font-size:7.05555556px;line-height:125%;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect67505);"
+       style="font-size:7.05556px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect67505);fill:none;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
        id="text67503"
        xml:space="preserve" />
     <path
@@ -1562,10 +1562,12 @@
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;stroke:#000000;stroke-width:0.264999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1;"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        x="85.822853"
        y="83.671028"
        id="text67481-6"><tspan
+         y="83.671028"
+         x="85.822853"
          id="tspan174798"
          sodipodi:role="line">PXE boot (TFTP)</tspan></text>
     <text
@@ -1662,10 +1664,12 @@
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444px;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.264999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        x="111.14155"
        y="147.8194"
        id="text67481-6-6-8"><tspan
+         y="147.8194"
+         x="111.14155"
          id="tspan174902"
          sodipodi:role="line">Test server</tspan></text>
   </g>
