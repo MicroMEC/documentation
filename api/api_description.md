@@ -4,13 +4,43 @@ This document should be used in conjunction with the architecture document to un
 
 This document should function as a glossary of APIs with its functionality, interfaces, inputs and expected outcomes as the following example:
 
-API1 < var 1, var 2, var 2>  
+# API 1: Kubernetes/k3 API
 
-(
+MicroMEC deploys k3, so the normal k3s interface is provided.
 
-functional description 
+See https://rancher.com/docs/k3s/latest/en/ for reference.
 
-) ret 1, ret 2
 
-    No labels 
+# API 2: OpenFAAS
+
+MicroMEC also deploys OpenFAAS. For that, we again refer to official documentation in https://docs.openfaas.com/.
+
+
+# API 3: ETSI MEC11
+
+Best overall reference is the ETSI MEC 11 documentation https://www.etsi.org/deliver/etsi_gs/MEC/001_099/011/01.01.01_60/gs_MEC011v010101p.pdf
+
+The following interfaces have been implemented:
+
+// DNS rules
+/mp1/v1/applications/{appInstanceId}/dns_rules
+/mp1/v1/applications/{appInstanceId}/dns_rules/{dnsRuleID}
+
+// Traffic rules will fail
+/mp1/v1/applications/{appInstanceId}/traffic_rules
+/mp1/v1/applications/{appInstanceId}/traffic_rules/{traffic_rule_id}
+
+/mp1/v1/applications/{appInstanceId}/dnsrules/{dnsRuleId}
+/mp1/v1/services
+/mp1/v1/timing/current_time
+
+
+# API 4: Available sensors
+
+New APIs can be added to the platform for e.g. accessing different sensors. This, according to the ETSI MEC philosophy, is done with OpenAPI. One example was done in the Metropolia Innovation project during fall 2019 for accessing camera images.
+
+
+# API 5: Developer interface
+
+There is a web UI for adding new applications so that both the MEC Service Registry and k3s are updated consistently.
 
