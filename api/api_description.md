@@ -22,17 +22,18 @@ Best overall reference is the ETSI MEC 11 documentation https://www.etsi.org/del
 
 The following interfaces have been implemented:
 
-// DNS rules
-/mp1/v1/applications/{appInstanceId}/dns_rules
-/mp1/v1/applications/{appInstanceId}/dns_rules/{dnsRuleID}
+DNS rules
+- /mp1/v1/applications/{appInstanceId}/dns_rules
+- /mp1/v1/applications/{appInstanceId}/dns_rules/{dnsRuleID}
 
-// Traffic rules will fail
-/mp1/v1/applications/{appInstanceId}/traffic_rules
-/mp1/v1/applications/{appInstanceId}/traffic_rules/{traffic_rule_id}
+Traffic rules will fail
+- /mp1/v1/applications/{appInstanceId}/traffic_rules
+- /mp1/v1/applications/{appInstanceId}/traffic_rules/{traffic_rule_id}
 
-/mp1/v1/applications/{appInstanceId}/dnsrules/{dnsRuleId}
-/mp1/v1/services
-/mp1/v1/timing/current_time
+Other
+- /mp1/v1/applications/{appInstanceId}/dnsrules/{dnsRuleId}
+- /mp1/v1/services
+- /mp1/v1/timing/current_time
 
 
 # API 4: Available sensors
