@@ -16,6 +16,8 @@ The installation system uses a server for booting and hosting the root file syst
 
 The system can be deployed as a standalone or as a cluster, and with different hardware. This document describes the standalone system.
 
+![Test architecture](test_env.svg)
+
 
 # Test API description
 
