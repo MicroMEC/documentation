@@ -40,84 +40,31 @@ Raspberry Pi 4
 
  ## Database Prerequisites
 
+None
 
-            Jump Host Requirements
+## Jump Host Requirements
 
-            Network Requirements
+TFTP server, NFS server, dhcp server. 
 
-            Bare Metal Node Requirements
+## Network Requirements
 
-            Execution Requirements (Bare Metal Only)
+The network must allow all messages needed for the network boot to happen. For instance, the client is not able to send VLAN-tagged traffic when it boots. Notice also that dhcp relaying is not reliable, so it is best if the client and server are connected to the same switch or have a direct connection.
 
-       Installation High-Level Overview
+# Installation High-Level Overview
 
-        Bare Metal Deployment Guide
+## Bare Metal Deployment Guide
 
-            Install Bare Metal Jump Host
+As above.
 
-            Creating a Node Inventory File
+## Virtual Deployment Guide
 
-            Creating the Settings Files
+Booting the image with a virtual machine is not supported. However, a virtual machine image (Vagrant file) is under construction.
 
-            Running
+           
+## Verifying the Setup as defined the Akraino validation feature project plus any additional testing specific to the blue print
 
+It should be possible to connect to the system with normal kubernetes commands. See k3s documentation.
 
-        Virtual Deployment Guide
-
-            Standard Deployment Overview
-
-            Snapshot Deployment Overview
-
-            Special Requirements for Virtual Deployments
-
-                Install Jump Host
-
-                Verifying the Setup - VMs
-
-        Upstream Deployment Guide
-
-            Upstream Deployment Key Features
-
-            Special Requirements for Upstream Deployments
-
-            Scenarios and Deploy Settings for Upstream Deployments
-
-            Including Upstream Patches with Deployment
-
-            Running
-
-            Interacting with Containerized Overcloud
-
-    Verifying the Setup as defined the Akraino validation feature project plus any additional testing specific to the blue print
-
-    Developer Guide and Troubleshooting
-
-        Utilization of Images
-
-        Post-deployment Configuration
-
-        Debugging Failures
-
-        Reporting a Bug
-
-    Uninstall Guide
-
-    Troubleshooting
-
-        Error Message Guide
-
-    Maintenance
-
-        Blue Print Package Maintenance
-            Software maintenance
-            Hardware maintenance
-        Blue Print Deployment Maintenance
-
-    Frequently Asked Questions
-
-    License
-
-    References
-
-    Definitions, acronyms and abbreviations
-
+## Uninstall Guide
+ 
+Reboot :-)
