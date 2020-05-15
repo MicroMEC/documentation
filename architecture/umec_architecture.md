@@ -23,6 +23,11 @@ Managing a cluster is non trivial without using a proper orchestration platform 
 
 The [installation document](../installation/umec_installation.md) describes how these clusters can be built and configured.
 
+![Mapping to 5G](./umec_in_5G.svg) 
+
+In terms of 5G architecture, the µMEC (despite the name) is connected to the Data Network (DN, usually Internet) through the User Plane Function (UPF). Obviously, it can share physical connectivity with a base station, but logically it is separate, as shown in the diagram.
+
+
 ## MicroMEC Node
 
 The diagram below presents a basic uMEC node that includes hardware and software elements. The uMEC is typically installed close to the data sources (sensors, cameras etc.) and to the systems to be controlled. 
