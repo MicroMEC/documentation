@@ -31,7 +31,11 @@ The ETSI MEC-11 implementation provides a REST interface. Writing a tests suite 
 
 ## BluVal Tests
 
-The µMEC installs k3s which is a lightweight version of kubernetes. Therefore, all the Akraino Bluprint Validation tests are applicable. 
+The µMEC installs k3s which is a lightweight version of kubernetes. Therefore, all the Akraino Bluprint Validation tests are applicable:
+
+- Vuls
+- kube-hunter
+- Kubernetes conformance
 	
 ## Additional Testing
 
