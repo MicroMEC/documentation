@@ -1,3 +1,5 @@
+# 
+
 The purpose of this Document is to enumerate the APIs which are exposed by Akraino Blue print project to the external projects Akraino/Non Akraino for interaction/integration.
 
 This document should be used in conjunction with the architecture document to understand APIs at  modular level and their interactions.
@@ -38,10 +40,14 @@ Other
 
 # API 4: Available sensors
 
-New APIs can be added to the platform for e.g. accessing different sensors. This, according to the ETSI MEC philosophy, is done with OpenAPI. One example was done in the Metropolia Innovation project during fall 2019 for accessing camera images.
+New APIs can be added to the platform for e.g. accessing different sensors. This, according to the ETSI MEC philosophy, is done with OpenAPI. One example was done in the Metropolia Innovation project during fall 2019 for accessing camera images. The code is available in https://github.com/Metropolia-Innovation-Project-2019-H2/uMEC-ETWS--API/tree/master/openapi.
 
+The file openapi.yaml defines the interface. The OpenAPI application then generates the sceleton code for client and server code for the selected programming language, Python in this case. The functionality is implemented in 'openapi/openapi_server/controllers/default_controller.py'.  
 
 # API 5: Developer interface
 
 There is a web UI for adding new applications so that both the MEC Service Registry and k3s are updated consistently.
 
+<!--
+vim:lbr 
+-->
