@@ -42,7 +42,7 @@ Other
 
 New APIs can be added to the platform for e.g. accessing different sensors. This, according to the ETSI MEC philosophy, is done with OpenAPI. One example was done in the Metropolia Innovation project during fall 2019 for accessing camera images. The code is available in https://github.com/Metropolia-Innovation-Project-2019-H2/uMEC-ETWS--API/tree/master/openapi.
 
-The file openapi.yaml defines the interface. The OpenAPI application then generates the sceleton code for client and server code for the selected programming language, Python in this case. The functionality is implemented in 'openapi/openapi_server/controllers/default_controller.py'.  
+The file `openapi.yaml` defines the interface. The OpenAPI application then generates the sceleton code for client and server code for the selected programming language, Python in this case. The functionality is implemented in `openapi/openapi_server/controllers/default_controller.py`.  
 
 # API 5: Developer interface
 
