@@ -27,7 +27,7 @@ rootfs via the LAN are not discussed in this how-to as of now.
 * A computer running Debian Linux. Any Linux flavor can be used, but
 our instructions refer to Debian.
 
-* 5GB free space on the hard drive. 
+* 15GB free space on the hard drive. 
 
 * Installed packages: tgt, open-iscsi.
 
@@ -60,9 +60,9 @@ our instructions refer to Debian.
 
         $ dd if=/dev/zero of=07f32691-opensuse-rootfs.img bs=400M count=10
 
-        $ sudo losetup -fP 07f32691-opensuse-rootfs.img
-
         $ sudo mkfs.ext4 07f32691-opensuse-rootfs.img
+
+        $ sudo losetup -fP 07f32691-opensuse-rootfs.img
 
 4. Check which loopback devices are allocated by the kernel:
 
@@ -97,11 +97,16 @@ our instructions refer to Debian.
 
         $ sudo tgtadm --lld iscsi --op bind --mode target --tid 1 -I ALL
 
+    __Note__ 
+    
+    If your iscsi server has other targets then you will need to pick a
+    different tid. 
+
     At this point the rootfs is available on the local network.
 
 9. Save the configuration on the netboot server to remain persistent
 
-        $ sudo tgt-admin --dump | tee  /etc/tgt/conf.d/micromec-cluster.conf
+        $ sudo tgt-admin --dump | sudo tee  /etc/tgt/conf.d/micromec-cluster.conf
 
 ### Local Testing
 
