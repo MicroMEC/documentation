@@ -6,9 +6,10 @@ Kudos!
 ## Foreword 
 
 These steps are meant to be completed on a Linux computer that serves as a 
-netboot server of the MicroMEC cluster. The steps can of course be adopted for other use cases. 
+netboot server of the MicroMEC cluster. The steps can of course be adopted for 
+other use cases. 
 
-* Our netboot server (ie iscsi target server) is called `bootserv`. 
+* Our netboot server (ie. iscsi target server) is called `bootserv`. 
 
 * The netboot server is available on the LAN and can be pinged using the name `bootserv`. 
 
@@ -57,16 +58,16 @@ our instructions refer to Debian.
 
         $ cd /tmp
 
-        $ dd if=/dev/zero of=07f32691-rootfs.img bs=400M count=10
+        $ dd if=/dev/zero of=07f32691-opensuse-rootfs.img bs=400M count=10
 
-        $ sudo losetup -fP 07f32691-rootfs.img
+        $ sudo losetup -fP 07f32691-opensuse-rootfs.img
 
-        $ sudo mkfs.ext4 07f32691-rootfs.img
+        $ sudo mkfs.ext4 07f32691-opensuse-rootfs.img
 
 4. Check which loopback devices are allocated by the kernel:
 
         $ losetup -a
-        /dev/loop0: []: (/tmp/07f32691-rootfs.img)
+        /dev/loop0: []: (/tmp/07f32691-opensuse-rootfs.img)
 
 5. Mount the virtual block device
 
@@ -86,13 +87,13 @@ our instructions refer to Debian.
 
         $ sudo mkdir /srv/iscsi
 
-        $ sudo mv 07f32691-rootfs.img /srv/iscsi
+        $ sudo mv 07f32691-opensuse-rootfs.img /srv/iscsi
 
 8. Prepare the iscsi target and publish it
 
-        $ sudo tgtadm --lld iscsi --op new --mode target --tid 1 -T iqn.org.micromec:rpi3-1-rootfs
+        $ sudo tgtadm --lld iscsi --op new --mode target --tid 1 -T iqn.org.micromec:rpi3-1-opensuse-rootfs
 
-        $ sudo tgtadm --lld iscsi --op new --mode logicalunit --tid 1 --lun 1 -b /srv/iscsi/07f32691-rootfs.img
+        $ sudo tgtadm --lld iscsi --op new --mode logicalunit --tid 1 --lun 1 -b /srv/iscsi/07f32691-opensuse-rootfs.img
 
         $ sudo tgtadm --lld iscsi --op bind --mode target --tid 1 -I ALL
 
@@ -106,9 +107,16 @@ our instructions refer to Debian.
 
 1. Check the iscsi target locally
 
-        $ sudo iscsiadm -m node --targetname iqn.org.micromec:rpi3-1-rootfs  -p localhost -l
-        Logging in to [iface: default, target: iqn.org.micromec:rpi3-1-rootfs, portal: 127.0.0.1,3260] (multiple)
-        Login to [iface: default, target: iqn.org.micromec:rpi3-1-rootfs, portal: 127.0.0.1,3260] successful.
+    Discover the iscsi target 
+    
+        $ sudo iscsiadm --mode discovery --op update --type sendtargets --portal localhost
+        127.0.0.1:3260,1 iqn.org.micromec:rpi3-1-opensuse-rootfs
+
+    Login to the iscsi target
+
+        $ sudo iscsiadm -m node --targetname iqn.org.micromec:rpi3-1-opensuse-rootfs  -p localhost -l
+        Logging in to [iface: default, target: iqn.org.micromec:rpi3-1-opensuse-rootfs, portal: 127.0.0.1,3260] (multiple)
+        Login to [iface: default, target: iqn.org.micromec:rpi3-1-opensuse-rootfs, portal: 127.0.0.1,3260] successful.
 
     Check if a new partition appears in the list:
 
@@ -139,10 +147,17 @@ our instructions refer to Debian.
 1. Check the iscsi target remotely
 
     Login to an other Linux computer which also has the open-iscsi tools installed.
+
+    Discover the iscsi target 
     
-        $ sudo iscsiadm -m node --targetname iqn.org.micromec:rpi3-1-rootfs -p bootserv -l
-        Logging in to [iface: default, target: iqn.org.micromec:rpi3-1-rootfs, portal: 192.168.4.1,3260]
-        Login to [iface: default, target: iqn.org.micromec:rpi3-1-rootfs, portal: 192.168.4.1,3260] successful.
+        $ sudo iscsiadm --mode discovery --op update --type sendtargets --portal bootserv
+        192.168.4.1:3260,1 iqn.org.micromec:rpi3-1-opensuse-rootfs
+    
+    Login to the iscsi target
+    
+        $ sudo iscsiadm -m node --targetname iqn.org.micromec:rpi3-1-opensuse-rootfs -p bootserv -l
+        Logging in to [iface: default, target: iqn.org.micromec:rpi3-1-opensuse-rootfs, portal: 192.168.4.1,3260]
+        Login to [iface: default, target: iqn.org.micromec:rpi3-1-opensuse-rootfs, portal: 192.168.4.1,3260] successful.
         
     Check the available partitions
     
