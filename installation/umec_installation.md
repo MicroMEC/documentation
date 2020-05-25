@@ -2,17 +2,22 @@
 
 # Introduction
 
-The installation on the preferred hardware (Raspberry Pis) is done simply by booting the system over network.
+The installation on the preferred hardware is done by booting the system over 
+network. The preferred hardware for a uMEC node is a Raspberry Pi (3B+ or 4B). 
 
-![Deployment](../testing/test_env.svg)
+![Simple Deployment](./umec_installation.png)
 
-Instructions on how to network boot a Raspberry Pi are in https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/net_tutorial.md.
+There are instructions on [how to prepare a MicroMEC cluster for network boot](./umec_netboot.md).
 
-In other words, the kernel image, initramfs and root file system are all stored on the server. 
+In a netboot setup the uMEC nodes load the Linux kernel image and initramfs via 
+TFTP from the netboot server. The root file system of each node is a separate 
+iscsi target on the netboot server. The uMEC nodes login to the iscsi target 
+during boot up. 
 
-This means that upgrading the software can be done simply by replacing the kernel or the file system on the boot server, and rebooting.
+Upgrading a uMEC node can be done simply by replacing the kernel or changing the
+root file system on the boot server and rebooting the uMEC node.
 
-The installation image is available at .... . We are also using the github page https://github.com/MicroMEC/documentation/ for development.
+The MicroMEC [upstream documentation is available online](https://github.com/MicroMEC/documentation).
 
 # License
 
@@ -20,35 +25,41 @@ Apache license
 
 # Deployment Architecture
 
-We are currently deploying a single node system with the installation.
+We are currently deploying a 3 node system with the installation.
 
 ## Pre-Installation Requirements
 
-The boot server must have the TFTP/BOOTP server and NFS server installed.
+The boot server must have the TFTP/BOOTP server and NFS server installed. For 
+more details please refer to the [MicroMEC Netboot](./umec_netboot.md) document.
 
 # Hardware Requirements
 
 ## Minimum Hardware Requirements
 
-Raspberry Pi 3
+Raspberry Pi 3B+
 
 ## Recommended Hardware Requirements
 
-Raspberry Pi 4
+Raspberry Pi 4B
 
 # Software Prerequisites
 
- ## Database Prerequisites
+## Database Prerequisites
 
 None
 
 ## Jump Host Requirements
 
-TFTP server, NFS server, dhcp server. 
+In the simplest setup the jump host to the uMEC cluster is the netboot server 
+itself. Requirements of that are defined in the [MicroMEC Netboot](./umec_netboot.md) 
+document.
 
 ## Network Requirements
 
-The network must allow all messages needed for the network boot to happen. For instance, the client is not able to send VLAN-tagged traffic when it boots. Notice also that dhcp relaying is not reliable, so it is best if the client and server are connected to the same switch or have a direct connection.
+The network must allow all messages needed for the network boot to happen. 
+For instance, the client is not able to send VLAN-tagged traffic when it boots. 
+Notice also that dhcp relaying is not reliable, so it is best if the client and 
+server are connected to the same switch or have a direct connection.
 
 # Installation High-Level Overview
 
@@ -58,13 +69,19 @@ As above.
 
 ## Virtual Deployment Guide
 
-Booting the image with a virtual machine is not supported. However, a virtual machine image (Vagrant file) is under construction.
-
+Booting the image with a virtual machine is not supported. However, a virtual 
+machine image (Vagrant file) is under construction.
            
-## Verifying the Setup as defined the Akraino validation feature project plus any additional testing specific to the blue print
+## Validation
 
-It should be possible to connect to the system with normal kubernetes commands. See k3s documentation.
+The setup must be validated as defined by the Akraino validation feature project 
+plus any additional testing specific to the blue print.
 
-## Uninstall Guide
+It should be possible to connect to the system with normal kubernetes commands. 
+See k3s documentation.
+
+## Uninstallation Guide
  
-Reboot :-)
+The uMEC nodes do not store any data. All data is kept on the netboot server, or
+on the server that hosts the root filesystem (iscsi target). Decommissioning the
+netboot server means a uMEC cluster can no longer start. 
