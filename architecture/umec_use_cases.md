@@ -1,6 +1,6 @@
 # MicroMEC Use cases
 
-There are different use cases for µMEC, and in fact we have used it as a basis 
+There are different use cases for uMEC, and in fact we have used it as a basis 
 for competitions to invent and implement them. 
 
 ## [IoThon 2019](https://iothon.io)
@@ -20,9 +20,9 @@ The winners implemented Moose ETWS (Early Traffic Warning System).
 This system consists of a phone application that a user can use for registering 
 to the service and for receiving warnings of roaming moose in the area. 
 
-The μMEC nodes have cameras and run a Tensorflow algorithm to detect the moose. 
+The uMEC nodes have cameras and run a Tensorflow algorithm to detect the moose. 
 When the user is driving in that area a warning will be sent.  With this 
-application, detection can be done on the μMEC node and there is no need to
+application, detection can be done on the uMEC node and there is no need to
 send the whole live image to a data center for analysis.
 
 ### Fighting Mongooses: Fluffy Hounder
@@ -48,7 +48,7 @@ The winner team was Flowify, who used openSUSE Tumbleweed base containers for
 their backend which ran entirely on a uMEC Edge gateway node. They used 
 state-of-the-art image detection to analyze static images taken by the security 
 cameras. A people count is extracted from the pictures and collected. 
-Pictures were taken via a umEC API. The data can be utilized in city planning 
+Pictures were taken via a uMEC API. The data can be utilized in city planning 
 and design of shopping malls and other places.
 
 ### [suseXcity](https://app.hackjunction.com/projects/junction-2019/view/5dcf1c0a62c4f1002bdd5eee)
@@ -58,7 +58,7 @@ backhaul for managing uMEC clusters.
 
 Source code [available](https://github.com/CiubotaruBogdan/suseXcity). 
 
-### Ravenholm
+### [Ravenholm](https://app.hackjunction.com/projects/junction-2019/view/5dcf0f23914ad1002b8db833)
 
 The 2nd runner up was Ravenholm. They brought a business case, where uMEC 
 deployments would help city officials, construction site planners and project 
@@ -77,7 +77,7 @@ Separate teams were responsible for different areas of the project.
 They have built a backend infrastructure that consists of 4 servers and a couple
 of Raspberry Pi 3B+ uMEC nodes. 
 
-The teams created a CI / CD environment with Jenkins, setup comprehensive 
+The teams created a CI / CD environment with Jenkins, a comprehensive 
 [performance monitoring and visualisation](https://github.com/Metropolia-Innovation-Project-2019-H2/umec-performance)
 with Grafana and [improved the Moose ETWS application](https://github.com/Metropolia-Innovation-Project-2019-H2/uMEC-ETWS--API)
 for container based installations. 
