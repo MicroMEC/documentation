@@ -1,4 +1,4 @@
-# RPi 3B+ iscsi how-to
+# RPi 4B iscsi how-to
 
 Inspiration from [hiroom2.com](https://www.hiroom2.com/2017/07/11/debian-9-tgt-en/).
 Kudos!
@@ -13,7 +13,7 @@ other use cases.
 
 * The netboot server is available on the LAN and can be pinged using the name `bootserv`. 
 
-* We refer to the RPi 3B+ with an id: `07f32691` and a name: `rpi3-1`.
+* We refer to the RPi 4B with an id: `0dc0a15d` and a name: `rpi4-1`.
 
 * We use sudo and start the preparations in /tmp on the netboot server. 
 
@@ -35,69 +35,85 @@ our instructions refer to Debian.
 
 ### Steps
 
-1. Download a ready made rootfs from the [Open Build Service](https://build.opensuse.org/).
+1. Download a ready made [Raspbian Buster lite image](https://www.raspberrypi.org/downloads/raspbian).
 
-    We will use openSUSE Tumbleweed on our RPi 3B+:
+The downloaded image has a rootfs which is about 1.5GB large. For MicroMEC we 
+need a rootfs that is 4GB at least. We will need to copy the rootfs from the 
+buster image to a large enough image file.
 
-    * [the latest openSUSE-Tumbleweed-ARM-JeOS.aarch64-rootfs tar.xz file](https://download.opensuse.org/ports/aarch64/tumbleweed/images)
-
-2. Extract the downloaded rootfs
-
-        $ cd /tmp
-
-        $ mkdir openSUSE_Tumbleweed
-
-        $ xz -d /tmp/openSUSE-Tumbleweed-ARM-JeOS.aarch64-rootfs.aarch64-2020.05.10-Snapshot20200512.tar.xz
-
-        $ cd openSUSE_Tumbleweed
-
-        $ tar xvf /tmp/openSUSE-Tumbleweed-ARM-JeOS.aarch64-rootfs.aarch64-2020.05.10-Snapshot20200512.tar.xz
-
-
-3. Create a virtual loop back device that will hold the rootfs:
+2. Extract the downloaded Raspbian Buster lite image
 
         $ cd /tmp
 
-        $ dd if=/dev/zero of=07f32691-opensuse-rootfs.img bs=400M count=10
+        $ mkdir raspbian_buster
 
-        $ sudo mkfs.ext4 07f32691-opensuse-rootfs.img
+        $ unzip 2020-02-13-raspbian-buster-lite.zip
+        Archive:  2020-02-13-raspbian-buster-lite.zip
+          inflating: 2020-02-13-raspbian-buster-lite.img 
 
-        $ sudo losetup -fP 07f32691-opensuse-rootfs.img
+3. Setup a virtual loopback device using the extracted image
+
+        $ sudo losetup -fP 2020-02-13-raspbian-buster-lite.img
+        
+        $ lsblk
+        NAME               MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINT
+        loop0                7:0    0   1.7G  0 loop  
+        ├─loop0p1          259:0    0   256M  0 part  
+        └─loop0p2          259:1    0   1.5G  0 part 
+        ...
+
+4. Mount the rootfs partition from the extracted image. The rootfs is available 
+via /dev/loop0p2 in our case.
+         
+        $ mkdir raspbian_rootfs
+        
+        $ sudo mount /dev/loop0p2 raspbian_rootfs
+
+5. Create a virtual loop back device that will hold the resized rootfs 
+
+        $ cd /tmp
+
+        $ dd if=/dev/zero of=0dc0a15d-raspbian-rootfs.img bs=400M count=10
+
+        $ sudo mkfs.ext4 0dc0a15d-raspbian-rootfs.img
+
+        $ sudo losetup -fP 0dc0a15d-raspbian-rootfs.img
 
 4. Check which loopback devices are allocated by the kernel:
 
         $ losetup -a
-        /dev/loop0: []: (/tmp/07f32691-opensuse-rootfs.img)
+        /dev/loop1: []: (/tmp/0dc0a15d-raspbian-rootfs.img)
+        /dev/loop0: []: (/tmp/2020-02-13-raspbian-buster-lite.img)
 
-5. Mount the virtual block device
+5. Mount the new virtual block device
 
-        $ mkdir 07f32691-rootfs-mount
+        $ mkdir 0dc0a15d-rootfs-mount
         
-        $ sudo mount -o loop /dev/loop0 07f32691-rootfs-mount
+        $ sudo mount -o loop /dev/loop1 0dc0a15d-rootfs-mount
 
-6. Copy the content of an existing rootfs image to the mounted block device
+6. Copy the content of the Rasbian Buster rootfs to the mounted block device
 
-        $ cp -R /tmp/downloaded_rootfs/*  07f32691-rootfs-mount/
+        $ sudo cp -R /tmp/raspbian_rootfs/* 0dc0a15d-rootfs-mount/
 
 7. Unmount the file and move it to the place where it will be served. 
 
-        $ sudo umount 07f32691-rootfs-mount
+        $ sudo umount 0dc0a15d-rootfs-mount
 
         $ sudo losetup -D
 
         $ sudo mkdir /srv/iscsi
 
-        $ sudo mv 07f32691-opensuse-rootfs.img /srv/iscsi
+        $ sudo mv 0dc0a15d-raspbian-rootfs.img /srv/iscsi
 
 8. Prepare the iscsi target and publish it
 
-        $ sudo tgtadm --lld iscsi --op new --mode target --tid 1 -T iqn.org.micromec:rpi3-1-opensuse-rootfs
+        $ sudo tgtadm --lld iscsi --op new --mode target --tid 1 -T iqn.org.micromec:rpi4-1-raspbian-rootfs
 
-        $ sudo tgtadm --lld iscsi --op new --mode logicalunit --tid 1 --lun 1 -b /srv/iscsi/07f32691-opensuse-rootfs.img
+        $ sudo tgtadm --lld iscsi --op new --mode logicalunit --tid 1 --lun 1 -b /srv/iscsi/0dc0a15d-raspbian-rootfs.img
 
         $ sudo tgtadm --lld iscsi --op bind --mode target --tid 1 -I ALL
 
-    __Note__ 
+    __Note__
     
     If your iscsi server has other targets then you will need to pick a
     different tid. 
@@ -115,13 +131,13 @@ our instructions refer to Debian.
     Discover the iscsi target 
     
         $ sudo iscsiadm --mode discovery --op update --type sendtargets --portal localhost
-        127.0.0.1:3260,1 iqn.org.micromec:rpi3-1-opensuse-rootfs
+        127.0.0.1:3260,1 iqn.org.micromec:rpi4-1-raspbian-rootfs
 
     Login to the iscsi target
 
-        $ sudo iscsiadm -m node --targetname iqn.org.micromec:rpi3-1-opensuse-rootfs  -p localhost -l
-        Logging in to [iface: default, target: iqn.org.micromec:rpi3-1-opensuse-rootfs, portal: 127.0.0.1,3260] (multiple)
-        Login to [iface: default, target: iqn.org.micromec:rpi3-1-opensuse-rootfs, portal: 127.0.0.1,3260] successful.
+        $ sudo iscsiadm -m node --targetname iqn.org.micromec:rpi4-1-raspbian-rootfs  -p localhost -l
+        Logging in to [iface: default, target: iqn.org.micromec:rpi4-1-raspbian-rootfs, portal: 127.0.0.1,3260] (multiple)
+        Login to [iface: default, target: iqn.org.micromec:rpi4-1-raspbian-rootfs, portal: 127.0.0.1,3260] successful.
 
     Check if a new partition appears in the list:
 
@@ -156,13 +172,13 @@ our instructions refer to Debian.
     Discover the iscsi target 
     
         $ sudo iscsiadm --mode discovery --op update --type sendtargets --portal bootserv
-        192.168.4.1:3260,1 iqn.org.micromec:rpi3-1-opensuse-rootfs
+        192.168.4.1:3260,1 iqn.org.micromec:rpi4-1-raspbian-rootfs
     
     Login to the iscsi target
     
-        $ sudo iscsiadm -m node --targetname iqn.org.micromec:rpi3-1-opensuse-rootfs -p bootserv -l
-        Logging in to [iface: default, target: iqn.org.micromec:rpi3-1-opensuse-rootfs, portal: 192.168.4.1,3260]
-        Login to [iface: default, target: iqn.org.micromec:rpi3-1-opensuse-rootfs, portal: 192.168.4.1,3260] successful.
+        $ sudo iscsiadm -m node --targetname iqn.org.micromec:rpi4-1-raspbian-rootfs -p bootserv -l
+        Logging in to [iface: default, target: iqn.org.micromec:rpi4-1-raspbian-rootfs, portal: 192.168.4.1,3260]
+        Login to [iface: default, target: iqn.org.micromec:rpi4-1-raspbian-rootfs, portal: 192.168.4.1,3260] successful.
         
     Check the available partitions
     

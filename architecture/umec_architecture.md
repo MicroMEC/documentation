@@ -6,7 +6,6 @@ This architecture document starts with the a general introduction to µMEC and i
 
 This is a living document in that it tries to track the changes in the architecture and our aim is to keep it up to date.
 
-
 ## Overview
 
 ![uMEC Network](./umec_network.png)
@@ -27,25 +26,7 @@ The [installation document](../installation/umec_installation.md) describes how 
 
 In terms of 5G architecture, the µMEC (despite the name) is connected to the Data Network (DN, usually Internet) through the User Plane Function (UPF). Obviously, it can share physical connectivity with a base station, but logically it is separate, as shown in the diagram.
 
-## Use cases
-
-There are different use cases for µMEC, and in fact we have used it as a basis for competitions to invent and implement them. In the IoThon, the challenge was described in https://github.com/nokia/IoT-Hackathon-sample-code. A description of the challenge in Junction 2019 is in https://github.com/SUSE/Junction2019. Below are some brief descriptions of some of the innovations.
-
-### Moose ETWS (https://github.com/mooseetws/mooseetws-tensorflow-detection)
-
-This system consists of a phone application that a user can use for registering to the service and for receiving warnings of roaming moose in the area. The µMEC nodes will have cameras and run a Tensorflow algorithm to detect the moose, and when the user is driving in that area, a warning will be sent. With this application, detection can be done in the µMEC and there is no need to send the whole live image to a data center for analysis.
-
-### Fluffy Hounder
-
-Here the ideas is to provide a service for pet owners: the cameras will recognize and identify dogs, cats and other animals. If a pet gets lost, it can be detected automatically. The pet owner will pay a monthly fee for the service.
-
-### Junction winner
-
-
-### Metropolia project
-
-During Fall 2019, students from the Metropolia University used the platform and e.g. created a new service according to the ETSI MEC framework, using OpenAPI to generate APIs and skeleton code.
-
+Some use cases are described in the [MicroMEC Use Cases document](./umec_use_cases.md).
 
 ## MicroMEC Node
 

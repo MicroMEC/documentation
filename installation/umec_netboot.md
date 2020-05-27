@@ -5,7 +5,10 @@ inexpensive components.
 
 The setup uses a Linux based laptop acting as a netboot server. The server 
 provides IP addresses (via DHCP) and the necessary boot loads to all MicroMEC 
-nodes. The MicroMEC nodes are Raspberry Pi 3B+ and 4B units. 
+nodes. 
+
+The MicroMEC nodes are Raspberry Pi 3B+ and 4B units. The RPi 3B+ units will 
+run openSUSE Tumbleweed, the 4B units will run Rasbian Buster.
 
 The MicroMEC nodes have no internal storage. All files are stored on the netboot
 server. 
@@ -59,7 +62,7 @@ iscsi boot is currently unsupported).
 We have separate documents detailing how to prepare the rootfs on the netboot server:
 
 * [RPi 3B+ rootfs over iscsi](./rpi3b+_iscsi_howto.md)
-* [Work In Progress: RPi 4B rootfs over nfs](./rpi4b_nfs_howto.md)
+* [RPi 4B rootfs over iscsi](./rpi4b_iscsi_howto.md)
 
 ### Initial test of the MicroMEC netboot server
 
@@ -223,6 +226,38 @@ over the network it will appear as a "local" device (like the microSD card used
 to be). When the rootfs switching stage is reached the RPi will use that virtual
 device. In the `cmdline.txt` above we refer to that device by its UUID. 
 
+__Note__ 
+
+The UUID of the root device can be determined by login into the iscsi target on 
+your workstation first as described in the *Remote Testing* section of the 
+[RPi 3B+ rootfs over iscsi](./rpi3b+_iscsi_howto.md) document. 
+
+Just for a quick recap on how to login to an iscsi target: 
+
+1. Discover the iscsi target 
+    
+    $ sudo iscsiadm --mode discovery --op update --type sendtargets --portal bootserv
+    192.168.4.1:3260,1 iqn.org.micromec:rpi3-1-opensuse-rootfs
+    
+2. Login to the iscsi target
+    
+    $ sudo iscsiadm -m node --targetname iqn.org.micromec:rpi3-1-opensuse-rootfs -p bootserv -l
+    Logging in to [iface: default, target: iqn.org.micromec:rpi3-1-opensuse-rootfs, portal: 192.168.4.1,3260]
+    Login to [iface: default, target: iqn.org.micromec:rpi3-1-opensuse-rootfs, portal: 192.168.4.1,3260] successful.
+        
+3. Check the available partitions
+    
+    $ cat /proc/partitions
+    major minor  #blocks  name
+    .....
+       8       16    4096000 sdb
+
+4. Determine the UUID 
+
+    $ sudo blkid /dev/sdb 
+    /dev/sdc: UUID="7bf4dc05-cd4a-46af-9689-4a03209d5ed2" BLOCK_SIZE="4096" TYPE="ext4"
+
+
 Details on possible cmdline entries can be found here:
 http://man7.org/linux/man-pages/man7/dracut.cmdline.7.html
 
@@ -231,8 +266,8 @@ https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/net.md
 https://www.raspberrypi.org/documentation/hardware/raspberrypi/bootmodes/net_tutorial.md
 https://metebalci.com/blog/bare-metal-rpi3-network-boot/
 
-Raspberry Pi 4B Netboot
-----
+## Raspberry Pi 4B Netboot
+
 Older RPi 4Bs might require an EEPROM update to enable netboot. 
 
 Let's check our RPi 4Bs while still having Raspbian booted from the SD card. 
@@ -282,25 +317,68 @@ The boot process and the requirements for the netboot server are basically the
 same for RPi 4B as we already describe for the RPi 3B+. The differences are the 
 files that are needed for the RPi 4B. 
 
-The RPi 4B specific files can be extracted from the [JeOS images for Raspeberry Pi 4 
-published at OBS](https://download.opensuse.org/ports/aarch64/tumbleweed/images).
+The RPi 4B specific files can be extracted from an official Rasbian image for 
+RPi 4B. We have used the [Raspbian Buster Lite image](https://www.raspberrypi.org/downloads/raspbian/).
 
 Files that are needed for stage 2 are: 
 
 * start4.elf  
 * fixup4.dat  
-* u-boot.bin  
+* kernel.8
 * bcm2711-rpi-4-b.dtb  
 * config.txt
+* cmdline.txt 
 
 Subdirs: 
 
 * overlays
 
-Please scroll up to the RPi 3B+ section for info on how to prepare the relevant
-files on the netboot server for the RPi 4B. The procedure is exactly the same 
-for both RPi variants. 
+The procedure to copy the relevant files is very similar to the one we had for 
+RPi 3B+ above. For RPi 4B we have to copy the files from the Rasbian Baster lite
+image. 
 
 For the preparation of the rootfs on the netboot server please refer to: 
-* [RPi 4B rootfs over nfs](./rpi4b_nfs_howto.md)
+* [RPi 4B rootfs over iscsi](./rpi4b_iscsi_howto.md)
 
+The [RPi 4B rootfs over iscsi](./rpi4b_iscsi_howto.md) document explains how to 
+mount the Raspbian Buster lite image. Once the image is mounted we can find the
+files in the `boot` subdirectory. 
+
+Once the files are copied, we can adjust the `cmdline.txt` file to somthing like
+this
+
+  $ cat cmdline.txt 
+  dwc_otg.lpm_enable=0 console=serial0,115200 loglevel=7 modules=iscsi_tcp ip=dhcp netroot=iscsi:192.168.4.1::::iqn.org.micromec:rpi4-1-raspbian-rootfs rd.iscsi.login_retry_max=10 root=UUID=8236bee6-9c37-4b04-8092-2630fd2b0596 rootfstype=ext4 rw rootwait 
+  
+__Note__ 
+
+The UUID of the root device can be determined by login into the iscsi target on 
+your workstation first as described in the *Remote Testing* section of the 
+[RPi 4B rootfs over iscsi](./rpi4b_iscsi_howto.md) document. 
+
+Just for a quick recap on how to login to an iscsi target: 
+
+1. Discover the iscsi target 
+    
+    $ sudo iscsiadm --mode discovery --op update --type sendtargets --portal bootserv
+    192.168.4.1:3260,1 iqn.org.micromec:rpi3-1-opensuse-rootfs
+    192.168.4.1:3260,1 iqn.org.micromec:rpi4-1-opensuse-rootfs
+    192.168.4.1:3260,1 iqn.org.micromec:rpi4-1-raspbian-rootfs
+    
+2. Login to the iscsi target
+    
+    $ sudo iscsiadm -m node --targetname iqn.org.micromec:rpi4-1-raspbian-rootfs -p bootserv -l
+    Logging in to [iface: default, target: iqn.org.micromec:rpi4-1-raspbian-rootfs, portal: 192.168.4.1,3260]
+    Login to [iface: default, target: iqn.org.micromec:rpi4-1-raspbian-rootfs, portal: 192.168.4.1,3260] successful.
+        
+3. Check the available partitions
+    
+    $ cat /proc/partitions
+    major minor  #blocks  name
+    .....
+       8       16    4096000 sdc
+
+4. Determine the UUID 
+
+    $ sudo blkid /dev/sdc
+    /dev/sdc: UUID="8236bee6-9c37-4b04-8092-2630fd2b0596" BLOCK_SIZE="4096" TYPE="ext4"
