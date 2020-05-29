@@ -1,38 +1,35 @@
-Release Notes for the <xxx Blue Print>l
+Release Notes for the MicroMEC Blueprint Release 3
+===================================================
 
-    Summary
-    what is released 
-        components of the release (Akraino new)
-         dependencies of the release (upstream version, patches)
-        differences from previous version
-    Upgrade Procedures
+# Summary
+# What is released 
 
-    Release Data
-        Enhancements
-            Functionality changes
-            New Features
+![Architecture](../architecture/junction_architecture.svg)
 
-        Version change
+## Components of the release (Akraino new)
 
-            Module version changes
+The MicroMEC release consists of
 
-            Document Version Changes
+- PXE boot image, including boot loader, Linux kernel and initramfs
+- Instructions on how to prepare a Linux server as a BOOTP/iscsi/nfs host 
+- openSUSE+Raspberry Pi Linux distro
+- Scripts for installing the other components
 
-        Deliverable
+##  Dependencies of the release (upstream version, patches)
 
-            Software Deliverable
+This release installs as example services
 
-            Documentation Deliverable
+- [Ruuvi tags sensor service](https://github.com/rulex/ruuvimec)
+- [Tensorflow model](https://hub.docker.com/r/emacski/tensorflow-serving)
 
-            Fixed Issues and Bugs
+The MEC-11 code is available in [Akraino Gerrit](gerrit.akraino.org).
 
-    Known Limitations, Issues and Workarounds
+#    Upgrade Procedures
 
-        System Limitations
+Update image and reboot.
 
-        Known Issues
+#    Known Limitations, Issues and Workarounds
 
-        Workarounds
+The supported hardware is Raspberry Pi 3B and 4, and the Ruuvi tag.
 
-    References
 
