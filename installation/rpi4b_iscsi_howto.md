@@ -126,80 +126,147 @@ via /dev/loop0p2 in our case.
 
 ### Local Testing
 
-1. Check the iscsi target locally
+  Discover the iscsi target 
+  
+    $ sudo iscsiadm --mode discovery --op update --type sendtargets --portal localhost
+    127.0.0.1:3260,1 iqn.org.micromec:rpi4-1-raspbian-rootfs
 
-    Discover the iscsi target 
-    
-        $ sudo iscsiadm --mode discovery --op update --type sendtargets --portal localhost
-        127.0.0.1:3260,1 iqn.org.micromec:rpi4-1-raspbian-rootfs
+  Login to the iscsi target
 
-    Login to the iscsi target
+    $ sudo iscsiadm -m node --targetname iqn.org.micromec:rpi4-1-raspbian-rootfs  -p localhost -l
+    Logging in to [iface: default, target: iqn.org.micromec:rpi4-1-raspbian-rootfs, portal: 127.0.0.1,3260] (multiple)
+    Login to [iface: default, target: iqn.org.micromec:rpi4-1-raspbian-rootfs, portal: 127.0.0.1,3260] successful.
 
-        $ sudo iscsiadm -m node --targetname iqn.org.micromec:rpi4-1-raspbian-rootfs  -p localhost -l
-        Logging in to [iface: default, target: iqn.org.micromec:rpi4-1-raspbian-rootfs, portal: 127.0.0.1,3260] (multiple)
-        Login to [iface: default, target: iqn.org.micromec:rpi4-1-raspbian-rootfs, portal: 127.0.0.1,3260] successful.
+  Check if a new partition appears in the list:
 
-    Check if a new partition appears in the list:
+    $ cat /proc/partitions
+    major minor  #blocks  name
+    .....
+       8       32    4096000 sdc
 
-        $ cat /proc/partitions
-        major minor  #blocks  name
-        .....
-           8       32    4096000 sdc
+  Mount the partition to a mount point
 
-    Mount the partition to a mount point
+    $ mkdir /tmp/test-rootfs
 
-        $ mkdir /tmp/test-rootfs
+    $ sudo mount /dev/sdc /tmp/test-rootfs
 
-        $ sudo mount /dev/sdc /tmp/test-rootfs
+    $ ls -alrt /tmp/test-rootfs
 
-        $ ls -alrt /tmp/test-rootfs
-
-    Umount the partition
-    
-        $ sudo umount /tmp/test-rootfs
-        
-    Logout from all iscsi targets
-    
-        $ sudo iscsiadm -m node -U all
-        
+  Umount the partition
+  
+    $ sudo umount /tmp/test-rootfs
+      
+  Logout from all iscsi targets
+  
+    $ sudo iscsiadm -m node -U all
+      
 
 ### Remote Testing
 
-1. Check the iscsi target remotely
+  Login to an other Linux computer which also has the open-iscsi tools installed.
 
-    Login to an other Linux computer which also has the open-iscsi tools installed.
-
-    Discover the iscsi target 
-    
-        $ sudo iscsiadm --mode discovery --op update --type sendtargets --portal bootserv
-        192.168.4.1:3260,1 iqn.org.micromec:rpi4-1-raspbian-rootfs
-    
-    Login to the iscsi target
-    
-        $ sudo iscsiadm -m node --targetname iqn.org.micromec:rpi4-1-raspbian-rootfs -p bootserv -l
-        Logging in to [iface: default, target: iqn.org.micromec:rpi4-1-raspbian-rootfs, portal: 192.168.4.1,3260]
-        Login to [iface: default, target: iqn.org.micromec:rpi4-1-raspbian-rootfs, portal: 192.168.4.1,3260] successful.
-        
-    Check the available partitions
-    
-        $ cat /proc/partitions
-        major minor  #blocks  name
-        .....
-           8       16    4096000 sdb
-
-    Mount the partition to a mount point
-
-        $ mkdir /tmp/test-rootfs
-
-        $ sudo mount /dev/sdb /tmp/test-rootfs
-
-        $ ls -alrt /tmp/test-rootfs
-
-    Umount the partition
-
-        $ sudo umount /tmp/test-rootfs
-
-    Logout from all iscsi targets
-    
-        $ sudo iscsiadm -m node -U all
+  Discover the iscsi target 
   
+    $ sudo iscsiadm --mode discovery --op update --type sendtargets --portal bootserv
+    192.168.4.1:3260,1 iqn.org.micromec:rpi4-1-raspbian-rootfs
+  
+  Login to the iscsi target
+  
+    $ sudo iscsiadm -m node --targetname iqn.org.micromec:rpi4-1-raspbian-rootfs -p bootserv -l
+    Logging in to [iface: default, target: iqn.org.micromec:rpi4-1-raspbian-rootfs, portal: 192.168.4.1,3260]
+    Login to [iface: default, target: iqn.org.micromec:rpi4-1-raspbian-rootfs, portal: 192.168.4.1,3260] successful.
+      
+  Check the available partitions
+  
+    $ cat /proc/partitions
+    major minor  #blocks  name
+    .....
+       8       16    4096000 sdb
+
+  Mount the partition to a mount point
+
+    $ mkdir /tmp/test-rootfs
+
+    $ sudo mount /dev/sdb /tmp/test-rootfs
+
+    $ ls -alrt /tmp/test-rootfs
+
+  Umount the partition
+
+    $ sudo umount /tmp/test-rootfs
+
+  Logout from all iscsi targets
+  
+    $ sudo iscsiadm -m node -U all
+   
+### Resize the rootfs Image
+
+If the mounted rootfs image outgrows the needs than it is very easy to grow and 
+resize it. Here are the steps to complete that operation: 
+
+  Login to the netboot server 
+
+  List all iscsi targets on the server
+
+    $ sudo iscsiadm --mode discovery --op update --type sendtargets --portal localhost
+
+    127.0.0.1:3260,1 iqn.2020-05.org.micromec:tensorflow-models
+    127.0.0.1:3260,1 iqn.org.micromec:rpi3-1-opensuse-rootfs
+    127.0.0.1:3260,1 iqn.org.micromec:rpi4-1-opensuse-rootfs
+    127.0.0.1:3260,1 iqn.org.micromec:rpi4-1-raspbian-rootfs
+    127.0.0.1:3260,1 iqn.org.micromec:rpi4-2-raspbian-rootfs
+
+  The list above shows all targets that can be access via iscsi. The rootfs 
+  to be resized is the rasbian (aka nowadays: Raspberry Pi OS) rootfs image
+  for rpi4-1.
+  
+  Check exactly RPi uses the rootfs that is to be resized
+
+    $ sudo tgtadm --lld iscsi --op show --mode conn --tid 4
+    Session: 5
+        Connection: 0
+            Initiator: iqn.1993-08.org.debian:01:aa4933fd855
+            IP Address: 192.168.4.48
+  
+  Shut down the RPi that uses the rootfs. In this case that RPi that has the
+  192.168.4.48 IP address. 
+  
+  Locate the img file that is served via iscsi. This document uses the 
+  /srv/iscsi location for all images. 
+  
+  Make a backup copy of the current rootfs image.
+    
+    $ sudo cp /srv/iscsi/rpi4-1-raspbian-rootfs.img /srv/iscsi/rpi4-1-raspbian-rootfs.img.bak
+
+  Append the image file with the necessary space. In this case let's add
+  4GB to the image: 
+  
+    $ sudo dd conv=notrunc oflag=append bs=1M count=4000 if=/dev/zero of=/srv/iscsi/rpi4-1-raspbian-rootfs.img
+      
+  Run a file system check with auto repair on the resized image file:
+  
+    $ sudo e2fsck -fy /srv/iscsi/rpi4-1-raspbian-rootfs.img
+    
+  Resize the file system for the entire image size:
+  
+    $ sudo resize2fs -f /srv/iscsi/rpi4-1-raspbian-rootfs.img
+  
+  Last, but not least restart the iscsi target daemon service on the netboot 
+  server: 
+  
+    $ sudo systemctl restart tgt.service
+    
+
+Let's boot the Raspberry Pi that uses the changed image and check the size of 
+the root partition. 
+
+    rpi4-1:~ $ df -h /dev/sda 
+    Filesystem      Size  Used Avail Use% Mounted on
+    /dev/sda        7.7G  3.9G  3.5G  53% /
+
+
+
+    
+    
+    
+    

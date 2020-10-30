@@ -168,7 +168,7 @@ As a side note: having the rootfs mounted via a loop back device allows us to
 manipulate the content on our Linux workstation. With this method we can 
 customize the rootfs of each of the MicroMEC nodes that are booted from the net.
 
-#### Stage 3 initramfs and kernel 
+### Stage 3 initramfs and kernel 
 
 During this stage the RPi loads a configuration which let us specify the 
 location of the initramfs and the kernel. This configuration is stored in a file
